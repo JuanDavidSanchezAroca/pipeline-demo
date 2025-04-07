@@ -1,13 +1,14 @@
 trigger:
 - main 
 
-pool:
-  vmImage: 'ubuntu-latest' 
 
 variables:
-  appName: 'nombre-de-tu-app'  # Nombre de tu aplicación
-  resourceGroup: 'nombre-del-resource-group'  # Grupo de recursos de Azure
-  webAppName: 'nombre-de-tu-app-service'  # Nombre de tu Azure App Service
+  -name: process.clean
+  value: false
+
+pool: Default
+
+
 
 stages:
 - stage: Build
