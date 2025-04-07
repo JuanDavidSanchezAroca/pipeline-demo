@@ -1,0 +1,38 @@
+trigger:
+- main 
+
+pool:
+  vmImage: 'ubuntu-latest' 
+
+variables:
+  appName: 'nombre-de-tu-app'  # Nombre de tu aplicación
+  resourceGroup: 'nombre-del-resource-group'  # Grupo de recursos de Azure
+  webAppName: 'nombre-de-tu-app-service'  # Nombre de tu Azure App Service
+
+stages:
+- stage: Build
+  displayName: 'Build the Spring Boot app'
+  jobs:
+    - job: Build
+      displayName: 'Build and package the Spring Boot application'
+      steps:
+        - task: Maven@3
+          displayName: 'Build with Maven'
+          inputs:
+            mavenPomFile: 'Maetria/src/pom.xml'  # Ruta al archivo pom.xml de tu proyecto
+            goals: 'clean package'
+            options: '-DskipTests=true'  # Evita ejecutar pruebas durante la compilación
+
+- stage: Deploy
+  displayName: 'Deploy to Azure'
+  jobs:
+    - job: Deploy
+      displayName: 'Deploy to Azure App Service'
+      steps:
+        - task: AzureWebApp@1
+          displayName: 'Deploy to Azure App Service'
+          inputs:
+            azureSubscription: 'Nombre-de-tu-conexión-de-Azure'  # Conexión de servicio de Azure en DevOps
+            appName: $(webAppName)
+            resourceGroupName: $(resourceGroup)
+            package: '$(Build.ArtifactStagingDirectory)/Maetria/src/target/*.jar'  # Ruta al archivo JAR generado por Maven
