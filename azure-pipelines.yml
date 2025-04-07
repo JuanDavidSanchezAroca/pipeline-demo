@@ -19,7 +19,7 @@ stages:
         - task: Maven@3
           displayName: 'Build with Maven'
           inputs:
-            mavenPomFile: 'Maetria/src/pom.xml'  # Ruta al archivo pom.xml de tu proyecto
+            mavenPomFile: 'Maestria/src/pom.xml'  # Ruta al archivo pom.xml de tu proyecto
             goals: 'clean package'
             options: '-DskipTests=true'  # Evita ejecutar pruebas durante la compilación
 
