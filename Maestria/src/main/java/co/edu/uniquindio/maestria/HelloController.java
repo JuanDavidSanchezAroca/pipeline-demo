@@ -8,6 +8,6 @@ public class HelloController {
 
     @GetMapping("/hello")
     public String helloWorld() {
-        return "ejemplo de codepipeline";
+        return "hola mundo!!";
     }
 }
